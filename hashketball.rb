@@ -168,16 +168,19 @@ def player_numbers(team_name)
   end
 end
 
-def player_stats(name)
-  stats = []
-   game_hash.each do |home_away, keys|
-      keys[:players].each do |player_name, value|
-         if player_name == name
-            stats << value
-         end
+def player_stats(input)
+  game_hash.each do |team, team_info|
+    team_info.each do |key, value|
+      if key == :players
+        value.each do |player|
+          if input == player[:player_name]
+            player.delete(:player_name) 
+            return player
+          end
+        end
       end
-   end
-   return game_hash
+    end
+  end
 end
 
 def big_shoe_rebounds
